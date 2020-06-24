@@ -16,8 +16,8 @@ const useStyles = makeStyles({
     maxWidth: 400,
     minHeight: 250,
     maxHeight: 250,
-    backgroundColor: "#212121",
     borderRadius: 15,
+    background: "linear-gradient(to top, #243B55, #141E30)"
   },
   typo: {
     color: "white"
