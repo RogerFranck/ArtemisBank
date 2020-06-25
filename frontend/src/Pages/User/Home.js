@@ -3,6 +3,7 @@ import CDinero from '../../Components/CDinero'
 import Grid from '@material-ui/core/Grid';
 import CardBtn from '../../Components/CardBtn'
 import Button from '@material-ui/core/Button';
+import ButtonSalir from '../../Components/btn_salir'
 
 export default class Home extends Component {
   render() {
@@ -29,7 +30,7 @@ export default class Home extends Component {
           <br/>
         </Grid>
         <Grid container xs={11} justify="flex-end">
-          <Button variant="contained">Salir</Button>
+          <ButtonSalir/>
         </Grid>
       </Grid>
     )
