@@ -23,4 +23,4 @@ const accounts = new Schema({
     }
 })
 
-module.exports = model('accountsModel', accounts)
+module.exports = model('accounts', accounts)

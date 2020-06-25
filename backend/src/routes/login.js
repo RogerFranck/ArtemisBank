@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const router = Router();
 
-const Account = require('../models/modelAccounts')
+const User = require('../models/modelAccounts')
 const jwt = require('jsonwebtoken');
 
 async function verifyToken(req, res, next) {
@@ -15,9 +15,9 @@ async function verifyToken(req, res, next) {
 }
 
 router.post('/', async (req, res) => {
-    const user = await Account.findOne({ nip: req.body.usuario })
+    const user = await User.findOne({ nip: req.body.nip })
     if (!user) {
-        return res.json({ status: "The user doesn't exists" })
+        return res.json({ status: "user not found"})
     }
     const token = jwt.sign({ id: user._id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/validar', verifyToken, async (req, res) => {
-    const user = await Account.findById(req.userId, { password: 0 });
+    const user = await User.findById(req.userId, { password: 0 });
     if (!user) {
         return res.json({status:"No user found."});
     }
