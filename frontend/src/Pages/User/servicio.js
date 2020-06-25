@@ -15,7 +15,7 @@ export default class Depositos extends Component {
     return (
       <Grid container style={{ minHeight: "100vh" }} justify="center" alignItems="center" >
         <Card className="card-depo">
-          <CardHeader mensaje="Depositar a mi cuenta" />
+          <CardHeader mensaje="Pagar Luz" />
           <CardContent>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 
@@ -48,7 +48,7 @@ export default class Depositos extends Component {
             </div>
           </CardContent>
           <CardActions style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button onClick={() => window.location.href = "/"} color="primary">Regresar</Button>
+            <Button onClick={() => window.location.href = "/PServicio"} color="primary">Regresar</Button>
             <Button color="primary">Depositar</Button>
           </CardActions>
         </Card>
