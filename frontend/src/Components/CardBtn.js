@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
-import Typography from '@material-ui/core/Typography';
+import TextInfoContent from '@mui-treasury/components/content/textInfo';
+import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -14,6 +15,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     position: 'relative',
     minHeight: 90,
+    maxHeight: 90,
     marginLeft: 'auto',
     overflow: 'initial',
     background: '#ffffff',
@@ -43,11 +45,19 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
 
 export const BlogCardDemo = React.memo(function BlogCard(props) {
   const styles = useStyles();
+  const {
+    button: buttonStyles,
+    ...contentStyles
+  } = useBlogTextInfoContentStyles();
   const shadowStyles = useOverShadowStyles();
   return (
-    <Card onClick={() => alert("Hola")} className={cx(styles.root, shadowStyles.root)}>
+    <Card onClick={() => window.location.href=props.ruta } className={cx(styles.root, shadowStyles.root)}>
       <CardContent>
-        <Typography className={styles.typo} >{props.message}</Typography>
+        <TextInfoContent
+          classes={contentStyles}
+          overline={props.message}
+          body={props.body}  
+        />
       </CardContent>
     </Card>
   );

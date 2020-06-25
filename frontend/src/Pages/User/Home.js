@@ -13,23 +13,23 @@ export default class Home extends Component {
         </Grid>
         <Grid container xs={12} md={6} spacing={3}>
           <Grid item xs={12} md={6}>
-            <CardBtn message="historial de transacciones" />
+            <CardBtn message="Transacciones" ruta="Utran" body="Consultar el historial de tansacciones" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <CardBtn message="Depositar" />
+            <CardBtn message="Depositar" ruta="Udepo"  body="Depositar dinero a tu cuenta" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <CardBtn message="Pagar Servicios" />
+            <CardBtn message="Pagar Servicios" ruta="PServicio"  body="Paga tus servicios favoritos" />
           </Grid>
           <Grid item xs={12} md={6}>
-            <CardBtn message="Retirar" />
+            <CardBtn message="Retirar" ruta="Ureti" body="Retirar el dinero de tu cuenta" />
           </Grid>
         </Grid>
         <Grid item xs={12}>
           <br/>
         </Grid>
         <Grid container xs={11} justify="flex-end">
-          <Button variant="contained" color="primary">Salir</Button>
+          <Button variant="contained">Salir</Button>
         </Grid>
       </Grid>
     )
