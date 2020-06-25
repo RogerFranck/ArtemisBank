@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const ATMCash = new Schema({
-    id: {
+    denominación: {
         type: Number,
         required: true,
     },

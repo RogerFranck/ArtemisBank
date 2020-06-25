@@ -1,25 +1,21 @@
 const {Schema, model} = require('mongoose');
 
 const transactions = new Schema({
-    id : {
-        type: Number,
-        required: true
-    },
     typeId : {
         type: String,
-        required: true
+        
     },
     accountId : {
-        type: Number,
-        requiered: true
+        type: String,
+        
     },
     utilitiesId: {
-        type: Number,
-        requiered: true
+        type: String,
+        
     },
     ammount: {
         type: Number,
-        requiered: true
+        
     }
 })
 
