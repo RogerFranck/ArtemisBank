@@ -11,6 +11,6 @@ app.use(cors());
 app.use(express.json());
 
 //routes
-
+app.use('/login', require('./routes/login'))
 
 module.exports = app;

@@ -5,10 +5,6 @@ const accounts = new Schema({
         type: Number,
         requiere: true,
     },
-    id : {
-        type: Number,
-        required: true,
-    },
     firstName : {
         type: String,
         requiered: true
