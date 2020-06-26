@@ -11,4 +11,4 @@ const services = new Schema({
     }
 })
 
-module.exports = model('servicesModel', services)
+module.exports = model('services', services)

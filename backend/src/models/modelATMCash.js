@@ -11,4 +11,4 @@ const ATMCash = new Schema({
     }
 })
 
-module.exports = model('ATMCashModel', ATMCash)
+module.exports = model('ATMCash', ATMCash)

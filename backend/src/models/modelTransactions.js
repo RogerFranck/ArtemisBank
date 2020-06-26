@@ -19,4 +19,4 @@ const transactions = new Schema({
     }
 })
 
-module.exports = model('transactionsModel', transactions)
+module.exports = model('transactions', transactions)
