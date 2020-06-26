@@ -1,14 +1,12 @@
-const { Schema, model } = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-const ATMCash = new Schema({
-    denominación: {
+const cash = new Schema({
+    denominacion : {
         type: Number,
-        required: true,
     },
-    quantity: {
-        type: Number,
-        requiered: true
+    quantity : {
+        type: Number,     
     }
 })
 
-module.exports = model('ATMCash', ATMCash)
+module.exports = model('dineros', cash)
