@@ -2,8 +2,8 @@ const {Router} = require('express');
 const router = Router();
 
 
-const {hacerRetiro} = require('../controllers/retiroControllers');
+const {hacerDeposito} = require('../controllers/depositoControllers');
 
 router.route('/')
-    .post(hacerRetiro)
+    .post(hacerDeposito)
 module.exports = router;
