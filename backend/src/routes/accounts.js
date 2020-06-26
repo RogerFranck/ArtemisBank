@@ -3,13 +3,17 @@ const { update } = require('../models/modelATMCash');
 const router = Router();
 
 
-const {getSaldos, getSaldo} = require('../controllers/accountsController');
+const {getAccounts, getAccount, createAccount, updateAccount, deleteAccount} = require('../controllers/accountsController');
 
 router.route('/')
-    .get(getSaldos);
+    .get(getAccounts)
+    .post(createAccount);
 
 router.route('/:id')
-    .get(getSaldo)
+    .get(getAccount)
+    .put(updateAccount)
+    .delete(deleteAccount);
+
 
 
 module.exports = router;
