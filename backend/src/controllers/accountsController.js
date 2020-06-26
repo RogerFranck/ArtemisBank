@@ -7,7 +7,7 @@ accountsCtrl.getSaldos = async (req, res) => {
     res.json(respu);
 };
 
-accountsCtrl.getSaldo = async  (requ, res) => {
+accountsCtrl.getSaldo = async  (req, res) => {
     const respu = await accountsData.findById(req.params.id);
     res.json(respu);
 };
