@@ -1,13 +1,25 @@
 const retiroCtrl = {};
 const cashmodel = require('../models/modelATMCash');
+const usermodel= require('../models/modelAccounts');
 
-async function actualizarMonedas(cantidad){
+async function actualizarMonedas(cantidad, id){
   const coin = await cashmodel.findOne({'denominacion': cantidad});
+  
   const update = {
       denominacion : cantidad,
       quantity : coin.quantity - 1
   }
-  await cashmodel.findOneAndUpdate({_id:coin.id}, update)
+ await cashmodel.findOneAndUpdate({_id:coin.id}, update)//Actualizar Monedas Cajero
+
+  const user = await usermodel.findById({_id:id})
+  const updateuser = {
+    tipo: user.tipo,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    nip : user.nip,
+    balance: user.balance - cantidad
+  }
+    await usermodel.findOneAndUpdate({_id:user.id}, updateuser)//Actualizar balance cuenta 
 }
 
 function ordenamiento(inputArr) {
@@ -24,10 +36,12 @@ function ordenamiento(inputArr) {
   return inputArr;
 }
 
-function dynamic(monedas, cantidad) {
+function dynamic(monedas, cantidad, user) {
   monedas = ordenamiento(monedas);
   n = cantidad;
   cantidadTotal = 0;
+
+  
 
   for (var i = 0; i<monedas.length; i++) {
     cantidadTotal = cantidadTotal + monedas[i][0] * monedas[i][1];
@@ -37,6 +51,9 @@ function dynamic(monedas, cantidad) {
   }
   else if(cantidad < 0){
     return "Error, no se aceptan números negativos";
+  }
+  else if(cantidad > user.balance){
+    return "Error, no hay suficiente dinero en la cuenta"
   }
 
   //Hasta aqui todo bien
@@ -86,7 +103,7 @@ function dynamic(monedas, cantidad) {
           numeros.push(matriz[posiblesMonedas[i][1]][0]);
           n = n - matriz[posiblesMonedas[i][1]][0];
           monedas[posiblesMonedas[i][1] - 1][1] = monedas[posiblesMonedas[i][1] - 1][1] - 1;
-          actualizarMonedas(matriz[posiblesMonedas[i][1]][0])
+          actualizarMonedas(matriz[posiblesMonedas[i][1]][0], user.id)
           break;
         }
         else if(monedas[posiblesMonedas[i][1] - 1][1] < 0)
@@ -101,7 +118,6 @@ function dynamic(monedas, cantidad) {
 
 retiroCtrl.hacerRetiro = async (req, res) => {
   const cash = await cashmodel.find();
-
   const dineroDisponible = []; 
   for( i=0; i<cash.length; i++) //Acomodar dinero para el algoritmo
   {
@@ -110,8 +126,11 @@ retiroCtrl.hacerRetiro = async (req, res) => {
     aux.push(cash[i].quantity)
     dineroDisponible.push(aux)
   }
-  res.json(dynamic(dineroDisponible, req.body.dinero))
+  const user = await usermodel.findById({_id:req.params.id});
+ 
+  res.json(dynamic(dineroDisponible, req.body.dinero, user))
 };
+
 
 module.exports = retiroCtrl;
 

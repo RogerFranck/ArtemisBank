@@ -14,14 +14,21 @@ import Divider from '@material-ui/core/Divider';
 import PaymentIcon from '@material-ui/icons/Payment';
 import IconButton from '@material-ui/core/IconButton';
 import PayGood from '../../Components/PayGood'
+import axios from 'axios';
 
 export default class Pagar_servicio extends Component {
   constructor() {
     super();
     this.state = {
       openGood: false,
+      user: [],
     };
   }
+
+  getServicios = async() =>{
+    const servicios = axios.get('http://localhost:4000/api/adminServices')
+    console.log(servicios)
+  };
 
   handleClickOpenGood = () => {
     this.setState({

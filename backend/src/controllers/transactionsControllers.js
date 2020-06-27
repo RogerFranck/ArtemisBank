@@ -26,10 +26,10 @@ transactionCtrl.getServiceTransactions = async (req,res) => {
 transactionCtrl.postTransaction = async (req,res) => {
   const {typeId, accountId, utilitiesId, ammount} = req.body;
   const newTransaction = new transactionModel({
-    typeId: typeId,
-    accountId: accountId,
-    utilitiesId: utilitiesId,
-    ammount: ammount,
+    typeId: typeId, //Retiro, deposito o pago servicio
+    accountId: accountId, //Quien lo hizo
+    utilitiesId: utilitiesId,//Qué servicio es
+    ammount: ammount, //cantidad
   });
   await newTransaction.save();
   res.json({message: "Transacción guardada"})

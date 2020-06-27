@@ -2,8 +2,10 @@ const {Router} = require('express');
 const router = Router();
 
 
-const {hacerDeposito} = require('../controllers/depositoControllers');
+const {hacerDepositoAdmin, hacerDepositoUser} = require('../controllers/depositoControllers');
 
-router.route('/')
-    .post(hacerDeposito)
+router.route('/admin')
+    .post(hacerDepositoAdmin)
+router.route('/user/:id')
+    .post(hacerDepositoUser)
 module.exports = router;
