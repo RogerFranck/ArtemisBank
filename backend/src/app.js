@@ -17,5 +17,6 @@ app.use('/api/transactions', require('./routes/transactions'))
 app.use('/api/retiro', require('./routes/retiro'))
 app.use('/api/deposito', require('./routes/deposito'))
 app.use('/api/adminServices', require('./routes/adminServices'))
+app.use('/api/pago', require('./routes/pagoServicios'))
 
 module.exports = app;

@@ -32,6 +32,10 @@ serviceCtrl.allService = async (req, res) => {
     res.json(respu);
 };
 
+serviceCtrl.getService = async (req, res) => {
+    respu = await servicesData.findById(req.params.id); 
+    res.json(respu);
+};
 //Delete Service
 serviceCtrl.deleteService = async (req, res) => {
     respu = await transactionsData.findOne({ utilitiesId: req.body.servicio })

@@ -2,8 +2,10 @@ const {Router} = require('express');
 const router = Router();
 
 
-const {hacerRetiro} = require('../controllers/retiroControllers');
+const {hacerRetiro, darCambio} = require('../controllers/retiroControllers');
 
+router.route('/') 
+    .post(darCambio)
 router.route('/:id')
     .post(hacerRetiro)
 

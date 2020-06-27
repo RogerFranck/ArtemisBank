@@ -24,7 +24,7 @@ function App() {
         <Route path="/Utran" exact component={Htran} />
         <Route path="/Ureti" exact component={Retiro} />
         <Route path="/Udepo" exact component={Depositar} />
-        <Route path="/servicio" exact component={ServicioEdit} />
+        <Route path="/servicio/:id" component={ServicioEdit} />
         <Route path="/admin" exact component={HomeAdmin} />
       </Switch>
     </Router>

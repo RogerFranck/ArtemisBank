@@ -23,6 +23,7 @@ export default class Pagar_servicio extends Component {
       openGood: false,
       user: [],
       servicios: [],
+      bool: false,
     };
   }
   componentDidMount = async () => {
@@ -44,7 +45,7 @@ export default class Pagar_servicio extends Component {
   getServicios = async() =>{
     const req = await axios.get('http://localhost:4000/api/adminServices');
     this.setState({servicios: req.data})
-    //console.log(this.state.servicios)
+    console.log(this.state.servicios)
   };
 
   handleClickOpenGood = () => {
@@ -59,39 +60,50 @@ export default class Pagar_servicio extends Component {
     });
   };
 
+  pagoServicioTarjeta = async (precio) =>{
+    const req = await axios.post('http://localhost:4000/api/pago/tarjeta/'+ this.state.user._id, {costo: precio});
+    this.setState({bool: req.data.pago})
+    console.log(req.data.pago)
+    this.handleClickOpenGood()
+  }
+
   render() {
+    const { servicios } = this.state;
+    const deployServicios = servicios.map((servicio) => (
+            <ListItem>
+          <ListItemText primary={servicio.description} secondary={servicio.cost} />
+          <ListItemAvatar>
+            <Avatar>
+              <IconButton onClick={() => window.location.href = `/servicio/${servicio._id}`}>
+                <LocalAtmIcon />
+              </IconButton>
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemAvatar>
+            <Avatar>
+              <IconButton onClick={() => this.pagoServicioTarjeta(servicio.cost)}>
+                <PaymentIcon />
+              </IconButton>
+            </Avatar>
+          </ListItemAvatar>
+        </ListItem>
+    ));
+    
+
     return (
       <Grid container style={{ minHeight: "100vh" }} justify="center" alignItems="center">
         <Grid item xs={12} md={3}>
           <Card>
             <CardHeader mensaje="Pagar servicios" />
             <List>
-              <ListItem>
-                <ListItemText primary="Luz" secondary="$100" />
-                <ListItemAvatar>
-                  <Avatar>
-                    <IconButton onClick={() => window.location.href = "/servicio"}>
-                      <LocalAtmIcon />
-                    </IconButton>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemAvatar>
-                  <Avatar>
-                    <IconButton onClick={this.handleClickOpenGood}>
-                      <PaymentIcon />
-                    </IconButton>
-                  </Avatar>
-                </ListItemAvatar>
-              </ListItem>
-              <Divider />
-             
+              {deployServicios}
             </List>
             <CardActions style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button onClick={() => window.location.href = "/"} color="primary">Regresar</Button>
             </CardActions>
           </Card>
         </Grid>
-        <PayGood open={this.state.openGood} close={this.handleClose} tipo={true} mensaje={""} />
+        <PayGood open={this.state.openGood} close={this.handleClose} tipo={this.state.bool} mensaje={""} />
       </Grid>
     )
   }
