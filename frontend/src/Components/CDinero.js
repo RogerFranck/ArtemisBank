@@ -66,7 +66,7 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   },
 }));
 
-export const BlogCardDemo = React.memo(function BlogCard() {
+export const BlogCardDemo = React.memo(function BlogCard(props) {
   const styles = useStyles();
   const {
     button: buttonStyles,
@@ -85,7 +85,7 @@ export const BlogCardDemo = React.memo(function BlogCard() {
         <TextInfoContent
           classes={contentStyles}
           overline={'Saldo Disponible'}
-          heading={'$500'}
+          heading={props.dineros}
           body={
             'Dinero diponible en su cuenta de Artemis Bank'
           }  

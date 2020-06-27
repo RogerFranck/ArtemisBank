@@ -17,7 +17,7 @@ async function verifyToken(req, res, next) {
 router.post('/', async (req, res) => {
     const user = await User.findOne({ nip: req.body.nip })
     if (!user) {
-        return res.json({ status: "user not found"})
+        return res.json({ status: "Nip Invalid"})
     }
     const token = jwt.sign({ id: user._id }, process.env.SECRET, {
         expiresIn: 60 * 60 * 24

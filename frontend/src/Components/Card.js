@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,6 +9,8 @@ import Sim from '../assets/sim.png'
 import TextField from '@material-ui/core/TextField';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
+
+import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -29,8 +31,28 @@ const darkTheme = createMuiTheme({
   },
 });
 
-export default function SimpleCard() {
+export default function SimpleCard(props) {
   const classes = useStyles();
+
+  const [nip, setNip] = useState("");
+
+  const subdata = async (e) => {
+    e.preventDefault();
+    const user = await axios.post('http://localhost:4000/login', {
+      nip: nip,
+    });
+    if (user.data.status) {
+      props.clickHandler("e");
+    } else {
+      localStorage.setItem('JWT-COOL', user.data.token);
+      if (user.data.user.tipo === 1) {
+        window.location.href = "/";
+      } else {
+        window.location.href = "/Admin";
+      }
+
+    }
+  }
 
   return (
     <Card className={classes.root}>
@@ -48,7 +70,15 @@ export default function SimpleCard() {
           </Grid>
           <Grid item xs={12}>
             <ThemeProvider theme={darkTheme}>
-              <TextField label="number of card" fullWidth  type="number" />
+              <form id="form1" onSubmit={subdata} >
+                <TextField 
+                  label="number of card" 
+                  fullWidth 
+                  type="number" 
+                  value={nip}
+                  onChange={(e)=>{setNip(e.target.value)}} 
+                />
+              </form>
             </ThemeProvider>
           </Grid>
         </Grid>
@@ -56,7 +86,7 @@ export default function SimpleCard() {
       <CardActions>
         <ThemeProvider theme={darkTheme}>
           <Grid justify="flex-end" fullWidth container>
-            <Button>Start</Button>
+            <Button type="submit" form="form1" >Start</Button>
           </Grid>
         </ThemeProvider>
       </CardActions>

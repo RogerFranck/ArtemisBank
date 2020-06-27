@@ -5,7 +5,15 @@ import { useFirebaseBtnStyles } from '@mui-treasury/styles/button/firebase';
 const FirebaseButton = () => {
   const styles = useFirebaseBtnStyles();
   return (
-    <Button classes={styles} variant={'contained'} color={'primary'}>
+    <Button
+      onClick={() => {
+        localStorage.removeItem('JWT-COOL');
+        window.location.href = "/Login";
+      }} 
+      classes={styles} 
+      variant={'contained'} 
+      color={'primary'}
+    >
       Salir
     </Button>
   );
