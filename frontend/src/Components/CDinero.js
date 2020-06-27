@@ -87,7 +87,7 @@ export const BlogCardDemo = React.memo(function BlogCard(props) {
           overline={'Saldo Disponible'}
           heading={props.dineros}
           body={
-            'Dinero diponible en su cuenta de Artemis Bank'
+            props.txt
           }  
         />
       </CardContent>

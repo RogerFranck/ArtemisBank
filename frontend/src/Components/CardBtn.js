@@ -9,6 +9,7 @@ import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoConte
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
+    cursor:'pointer',
     margin: 'auto',
     borderRadius: spacing(2), // 16px
     transition: '0.3s',
