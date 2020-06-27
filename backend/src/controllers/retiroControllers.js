@@ -2,15 +2,8 @@ const retiroCtrl = {};
 const cashmodel = require('../models/modelATMCash');
 const usermodel= require('../models/modelAccounts');
 
-async function actualizarMonedasYCuenta(cantidad, id){
-  const coin = await cashmodel.findOne({'denominacion': cantidad});
-  
-  const update = {
-      denominacion : cantidad,
-      quantity : coin.quantity - 1
-  }
- await cashmodel.findOneAndUpdate({_id:coin.id}, update)//Actualizar Monedas Cajero
 
+async function actualizarCuenta(cantidad, id){
   const user = await usermodel.findById({_id:id})
   const updateuser = {
     tipo: user.tipo,
@@ -19,6 +12,7 @@ async function actualizarMonedasYCuenta(cantidad, id){
     nip : user.nip,
     balance: user.balance - parseInt(cantidad)
   }
+
     await usermodel.findOneAndUpdate({_id:id}, updateuser)//Actualizar balance cuenta 
 }
 
@@ -113,7 +107,7 @@ function dynamic(monedas, cantidad, user) {
           numeros.push(matriz[posiblesMonedas[i][1]][0]);
           n = n - matriz[posiblesMonedas[i][1]][0];
           monedas[posiblesMonedas[i][1] - 1][1] = monedas[posiblesMonedas[i][1] - 1][1] - 1;
-          actualizarMonedasYCuenta(matriz[posiblesMonedas[i][1]][0], user.id)
+          actualizar(matriz[posiblesMonedas[i][1]][0])
           break;
         }
         else if(monedas[posiblesMonedas[i][1] - 1][1] < 0)
@@ -123,6 +117,11 @@ function dynamic(monedas, cantidad, user) {
       }
     }
   }
+  var total = 0
+  for (var i =0; i<numeros.length; i++){
+    total = total + numeros[i];
+  }
+  actualizarCuenta(total, user.id);
   return numeros;
 }
 
