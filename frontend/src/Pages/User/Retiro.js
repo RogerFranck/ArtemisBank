@@ -42,7 +42,7 @@ export default class Retiro extends Component {
       dinero: this.state.dinero,
     });
 
-    console.log(usersi);
+    alert(usersi.data);
 
   }
 
