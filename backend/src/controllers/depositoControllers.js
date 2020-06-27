@@ -21,7 +21,7 @@ depositoCtrl.hacerDepositoUser = async (req, res) => {
   const coin = await cashmodel.findOne({'denominacion': denominacion});
   const updatebank = {
     denominacion : denominacion,
-    quantity : coin.quantity + cantidad 
+    quantity : parseInt(coin.quantity) + parseInt(cantidad) 
   }
   await cashmodel.findOneAndUpdate({_id:coin.id}, updatebank)
 

@@ -22,12 +22,29 @@ export default class Pagar_servicio extends Component {
     this.state = {
       openGood: false,
       user: [],
+      servicios: [],
     };
+  }
+  componentDidMount = async () => {
+    const jwt = localStorage.getItem('JWT-COOL');
+    if (jwt) {
+      const req = await axios.get('http://localhost:4000/login/validar', {
+        headers: {
+          "x-jwt": jwt
+        }
+      });
+      this.setState({user: req.data});
+    }
+    else{
+      window.location.href = "/login";
+    }
+    this.getServicios();
   }
 
   getServicios = async() =>{
-    const servicios = axios.get('http://localhost:4000/api/adminServices')
-    console.log(servicios)
+    const req = await axios.get('http://localhost:4000/api/adminServices');
+    this.setState({servicios: req.data})
+    //console.log(this.state.servicios)
   };
 
   handleClickOpenGood = () => {
