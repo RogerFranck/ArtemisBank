@@ -16,14 +16,19 @@ import IconButton from '@material-ui/core/IconButton';
 import PayGood from '../../Components/PayGood'
 import axios from 'axios';
 
+
+
+
 export default class Pagar_servicio extends Component {
   constructor() {
     super();
     this.state = {
       openGood: false,
+      openAlert1: false,
       user: [],
       servicios: [],
       bool: false,
+      message: ""
     };
   }
   componentDidMount = async () => {
@@ -60,10 +65,25 @@ export default class Pagar_servicio extends Component {
     });
   };
 
-  pagoServicioTarjeta = async (precio) =>{
+  pagoServicioTarjeta = async (precio, servicio) =>{
     const req = await axios.post('http://localhost:4000/api/pago/tarjeta/'+ this.state.user._id, {costo: precio});
+
+    //@Roger - Copiar y pegar de aquí 
+    const postTrans = await axios.post('http://localhost:4000/api/transactions',{
+      typeId: "Pago Servicio", //Retiro, deposito o pago servicio
+      accountId: this.state.user._id, //Quien lo hizo
+      utilitiesId: servicio,//Qué servicio es
+      ammount: precio, //cantidad
+    })
+    //A aquí
+    
     this.setState({bool: req.data.pago})
-    console.log(req.data.pago)
+    if (!req.data.pago){
+      this.setState({message: "No hay suficiente saldo en la cuenta"})
+    }
+    else{
+      this.setState({message: "Pago Realizado con éxito"})
+    }
     this.handleClickOpenGood()
   }
 
@@ -81,7 +101,7 @@ export default class Pagar_servicio extends Component {
           </ListItemAvatar>
           <ListItemAvatar>
             <Avatar>
-              <IconButton onClick={() => this.pagoServicioTarjeta(servicio.cost)}>
+              <IconButton onClick={() => this.pagoServicioTarjeta(servicio.cost, servicio.description)}>
                 <PaymentIcon />
               </IconButton>
             </Avatar>
@@ -103,8 +123,9 @@ export default class Pagar_servicio extends Component {
             </CardActions>
           </Card>
         </Grid>
-        <PayGood open={this.state.openGood} close={this.handleClose} tipo={this.state.bool} mensaje={""} />
-      </Grid>
+        <PayGood open={this.state.openGood} close={this.handleClose} tipo={this.state.bool} mensaje={this.state.message} />
+        
+      </Grid>      
     )
   }
 }

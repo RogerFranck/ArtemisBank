@@ -17,9 +17,9 @@ async function actualizarMonedasYCuenta(cantidad, id){
     firstName: user.firstName,
     lastName: user.lastName,
     nip : user.nip,
-    balance: user.balance - cantidad
+    balance: user.balance - parseInt(cantidad)
   }
-    await usermodel.findOneAndUpdate({_id:user.id}, updateuser)//Actualizar balance cuenta 
+    await usermodel.findOneAndUpdate({_id:id}, updateuser)//Actualizar balance cuenta 
 }
 
 async function actualizar(cantidad){

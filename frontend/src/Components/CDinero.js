@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
 import { useBlogTextInfoContentStyles } from '@mui-treasury/styles/textInfoContent/blog';
 import { useOverShadowStyles } from '@mui-treasury/styles/shadow/over';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(({ breakpoints, spacing }) => ({
   root: {
@@ -64,6 +65,9 @@ const useStyles = makeStyles(({ breakpoints, spacing }) => ({
     marginTop: 24,
     textTransform: 'initial',
   },
+  name:{
+    fontWeight: 'bold', 
+  }
 }));
 
 export const BlogCardDemo = React.memo(function BlogCard(props) {
@@ -90,6 +94,7 @@ export const BlogCardDemo = React.memo(function BlogCard(props) {
             props.txt
           }  
         />
+        <Typography className={styles.name}>{props.nombreUsuario}</Typography>
       </CardContent>
     </Card>
   );

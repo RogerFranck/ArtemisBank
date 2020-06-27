@@ -34,8 +34,9 @@ export default class Home extends Component {
       <Grid container style={{ marginTop: 150 }}>
         <Grid item xs={12} md={6}>
           <CDinero  
-            txt={`Dinero diponible en su cuenta de Artemis Bank.  > ${this.state.user.firstName} ${this.state.user.lastName} `} 
+            txt={`Dinero diponible en su cuenta de Artemis Bank.`} 
             dineros={`$${this.state.user.balance}`} 
+            nombreUsuario={`${this.state.user.firstName} ${this.state.user.lastName}`}
           />
         </Grid>
         <Grid container xs={12} md={6} spacing={3}>

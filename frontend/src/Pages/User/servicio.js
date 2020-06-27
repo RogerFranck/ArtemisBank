@@ -18,6 +18,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import Collapse from '@material-ui/core/Collapse';
+import MuiAlert from '@material-ui/lab/Alert';
+import Slide from '@material-ui/core/Slide';
 
 export default class Depositos extends Component {
 
@@ -25,12 +28,14 @@ export default class Depositos extends Component {
     super();
     this.state = {
       openGood: false,
-      openSnack1: false,
+      openAlert1: false,
+      openAlert2: false,
       user: [],
       servicios:[],
       costo: 0,
       cantidad: 0,
       dinero: 0,
+      cambio: []
     };
   }
   componentDidMount = async () => {
@@ -56,15 +61,34 @@ export default class Depositos extends Component {
   };
   
   realizarPago = async() =>{
+    this.setState({openAlert1: true})
     const req = await axios.post('http://localhost:4000/api/pago/efectivo', {
       dinero: this.state.dinero, 
       cantidad: this.state.cantidad
     });
+    //Copiar y pegar esto @Roger
+    const postTrans = await axios.post('http://localhost:4000/api/transactions',{
+      typeId: "Pago Servicio", //Retiro, deposito o pago servicio
+      accountId: this.state.user._id, //Quien lo hizo
+      utilitiesId: this.state.servicios.description,//Qué servicio es
+      ammount: this.state.dinero * this.state.cantidad, //cantidad
+    })
+    //A aquí
     this.setState({costo: this.state.costo - (this.state.cantidad*this.state.dinero)})
+    this.cambio();
   }
   cambio= async()=>{
     if(this.state.costo < 0){
-      const cambio = await axios.post('http://localhost:4000/api/retiro',{dinero: this.state.costo})
+      const cambio = await axios.post('http://localhost:4000/api/retiro',{dinero: (this.state.costo) *-1})
+      this.setState({openAlert2: true}) 
+      const temporal = []
+      for (var i=0; i< cambio.data.length; i++){
+        temporal.push(` $${cambio.data[i]} `)
+      }
+      this.setState({cambio: temporal})
+      this.setState({costo:0})
+    }else{
+      this.setState({openAlert1: true})
     }
   }
   
@@ -72,6 +96,7 @@ export default class Depositos extends Component {
   render() {
     return (
       <Grid container style={{ minHeight: "100vh" }} justify="center" alignItems="center" >
+         
         <Card className="card-depo">
           <CardHeader mensaje={`Pagar ${this.state.servicios.description}`}/>
           <CardContent>
@@ -117,7 +142,32 @@ export default class Depositos extends Component {
             <Button onClick= {this.realizarPago}color="primary">Depositar</Button>
           </CardActions>
         </Card>
+     
+     
+       <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        open={this.state.openAlert1}
+        onClose={(e) => this.setState({openAlert1: false})}
+        autoHideDuration={6000}
+        //message={`Se han pagado: $${this.state.cantidad*this.state.dinero} pesos correctamente`}
+        >
+        <Alert onClose={(e) => this.setState({openAlert1:false})} severity="success">
+        {`Se han pagado: $${this.state.cantidad*this.state.dinero} pesos correctamente`}
+        </Alert>
+        </Snackbar>
+        <Snackbar
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={this.state.openAlert2}
+        onClose={(e) => this.setState({openAlert2: false})}
+        autoHideDuration={6000}
+       // message={`Se han pagado: $${this.state.cantidad*this.state.dinero} pesos correctamente`}
+        >
+        <Alert onClose={(e) => this.setState({openAlert2:false})} severity="info">
+        {`Se regresarán las siguientes denominaciones como cambio: ${this.state.cambio} `}
+        </Alert>
+        </Snackbar>
       </Grid>
+    
     )
   }
 }
