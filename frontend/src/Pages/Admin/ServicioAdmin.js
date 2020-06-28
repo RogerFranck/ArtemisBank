@@ -41,11 +41,12 @@ export default function MaterialTableDemo() {
     actualizarData();
   }
   const deleteProspecto = async (dataOld) => {
-    await axios.delete('http://localhost:4000/api/adminServices/' + dataOld.description);
+    const ada =  await axios.delete('http://localhost:4000/api/adminServices/' + dataOld.description);
+    alert(ada.data.message);
     actualizarData();
   }
   const updateProspecto = async (dataUpdate) => {
-    await axios.put('http://localhost:4000/api/adminServices/' + dataUpdate.description, dataUpdate)
+    await axios.put('http://localhost:4000/api/adminServices/' + dataUpdate._id, dataUpdate)
     actualizarData();
   }
 
