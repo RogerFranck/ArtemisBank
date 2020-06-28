@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 304,
     margin: 'auto',
+    cursor:'pointer',
   },
   content: {
     padding: 24,
@@ -36,7 +37,7 @@ export const PostCardDemo = React.memo(function PostCard(props) {
   const shadowStyles = useSoftRiseShadowStyles();
   const textCardContentStyles = useN01TextInfoContentStyles();
   return (
-    <Card className={cx(cardStyles.root, shadowStyles.root)}>
+    <Card  onClick={() => window.location.href=props.ruta } className={cx(cardStyles.root, shadowStyles.root)}>
       <CardMedia
         classes={mediaStyles}
         image={

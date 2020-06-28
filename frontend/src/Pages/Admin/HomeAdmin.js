@@ -8,7 +8,6 @@ import ButtonSalir from '../../Components/btn_salir'
 
 export default class HomeAdmin extends Component {
   render() {
-
     return (
       <Grid container style={{ marginTop: 150 }}>
         <Grid item xs={12} md={4}>
@@ -18,6 +17,7 @@ export default class HomeAdmin extends Component {
             img={
               'https://fotografias.lasexta.com/clipping/cmsimages02/2019/07/26/D0809B2F-0008-4CB4-8615-45689386ADBC/58.jpg'
             }
+            ruta="DepoAdmin"
           >
             <AttachMoneyIcon />
           </Btnadmin>
@@ -29,6 +29,7 @@ export default class HomeAdmin extends Component {
             img={
               'https://besthqwallpapers.com/Uploads/8-12-2019/115038/thumb2-modern-buildings-skyscrapers-modern-architecture-modern-city-stylish-buildings.jpg'
             }
+            ruta="ConsuAdmin"
           >
             <BookmarkIcon />
           </Btnadmin>
@@ -40,6 +41,7 @@ export default class HomeAdmin extends Component {
             img={
               'https://i.pinimg.com/originals/86/0a/4b/860a4b24c7f4c31b00637e21a7cf6ade.jpg'
             }
+            ruta="ServicioAdmin"
           >
             <AccountBalanceIcon />
           </Btnadmin>

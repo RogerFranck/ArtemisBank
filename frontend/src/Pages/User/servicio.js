@@ -60,18 +60,23 @@ export default class Depositos extends Component {
     this.setState({costo: req.data.cost})
   };
   
-  realizarPago = async() =>{
+  realizarPago = async(costodelservicio) =>{
     this.setState({openAlert1: true})
     const req = await axios.post('http://localhost:4000/api/pago/efectivo', {
       dinero: this.state.dinero, 
       cantidad: this.state.cantidad
     });
     //Copiar y pegar esto @Roger
+    if(this.state.dinero * this.state.cantidad>this.state.costo){
+      var dinerotot = this.state.costo;
+    }else{
+      var dinerotot = this.state.dinero * this.state.cantidad;
+    }
     const postTrans = await axios.post('http://localhost:4000/api/transactions',{
       typeId: "Pago Servicio", //Retiro, deposito o pago servicio
       accountId: this.state.user._id, //Quien lo hizo
       utilitiesId: this.state.servicios.description,//Qué servicio es
-      ammount: this.state.dinero * this.state.cantidad, //cantidad
+      ammount: dinerotot, //cantidad
     })
     //A aquí
     this.setState({costo: this.state.costo - (this.state.cantidad*this.state.dinero)})

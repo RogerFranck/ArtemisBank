@@ -19,7 +19,9 @@ export default class Retiro extends Component {
       user: '',
       dinero: 0,
       openAlert1: false,
-      billetes:[],
+      billetes: [],
+      txt: '',
+      type:'',
     };
   }
 
@@ -42,19 +44,29 @@ export default class Retiro extends Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
+    if (this.state.dinero < 50) {
+      this.setState({
+        txt: `Minimo retiro de $50`,
+        type:'warning',
+        openAlert1: true
+      })
+      return "nada"
+    }
     const usersi = await axios.post('http://localhost:4000/api/retiro/' + this.state.user, {
       dinero: this.state.dinero,
     });
-    await axios.post('http://localhost:4000/api/transactions',{
+    await axios.post('http://localhost:4000/api/transactions', {
       typeId: "Retiro", //Retiro, deposito o pago servicio
       accountId: this.state.user, //Quien lo hizo
       ammount: this.state.dinero, //cantidad
     })
 
-    this.setState({ 
+    this.setState({
       billetes: usersi.data,
+      type:'success',
+      txt: `Los billetes son: ${usersi.data}`,
       openAlert1: true
-   })
+    })
 
   }
 
@@ -91,8 +103,8 @@ export default class Retiro extends Component {
           onClose={(e) => this.setState({ openAlert1: false })}
           autoHideDuration={6000}
         >
-          <Alert onClose={(e) => this.setState({ openAlert1: false })} severity="success">
-            {`Los billetes son: ${this.state.billetes}`}
+          <Alert onClose={(e) => this.setState({ openAlert1: false })} severity={this.state.type}>
+            {this.state.txt}
           </Alert>
         </Snackbar>
       </Grid>

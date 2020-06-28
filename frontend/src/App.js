@@ -13,6 +13,9 @@ import Depositar from './Pages/User/Depositos'
 import ServicioEdit from './Pages/User/servicio'
 //Pages Admin
 import HomeAdmin from './Pages/Admin/HomeAdmin'
+import DepositosAdmin from './Pages/Admin/DepositosAdmin'
+import ConsultasAdmin from './Pages/Admin/ConsultasAdmin'
+import ServicioAdmin from './Pages/Admin/ServicioAdmin'
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
         <Route path="/Udepo" exact component={Depositar} />
         <Route path="/servicio/:id" component={ServicioEdit} />
         <Route path="/admin" exact component={HomeAdmin} />
+        <Route path="/DepoAdmin" exact component={DepositosAdmin} />
+        <Route path="/ConsuAdmin" exact component={ConsultasAdmin} />
+        <Route path="/ServicioAdmin" exact component={ServicioAdmin} />
       </Switch>
     </Router>
   );
