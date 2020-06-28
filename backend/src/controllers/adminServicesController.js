@@ -43,7 +43,7 @@ serviceCtrl.deleteService = async (req, res) => {
     console.log(respu2);
     
     if (respu2!=null) {
-        res.json({ message: 'No es posible eliminar el servicio' });
+        res.json({ message: 'No es posible eliminar el servicio, ya existen transacciones' });
     } else {
         await servicesData.findOneAndDelete({ description: req.params.id });
         res.json({ message: 'Servicio Eliminado correctamente' });
