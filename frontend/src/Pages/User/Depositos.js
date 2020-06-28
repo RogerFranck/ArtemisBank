@@ -10,6 +10,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CardHeader from '../../Components/CardHeader'
 import axios from 'axios';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 export default class Depositos extends Component {
   constructor() {
@@ -18,6 +20,7 @@ export default class Depositos extends Component {
       user: '',
       cantidad: 0,
       dinero: 0,
+      openAlert1:false,
     };
   }
 
@@ -30,7 +33,7 @@ export default class Depositos extends Component {
         }
       });
       this.setState({
-        user:user.data._id
+        user: user.data._id
       });
     }
     else {
@@ -41,12 +44,19 @@ export default class Depositos extends Component {
   onSubmit = async (e) => {
     e.preventDefault();
 
-    const usersi = await axios.post('http://localhost:4000/api/deposito/user/' + this.state.user, {
+    await axios.post('http://localhost:4000/api/deposito/user/' + this.state.user, {
       dinero: this.state.dinero,
       cantidad: this.state.cantidad,
     });
+    await axios.post('http://localhost:4000/api/transactions',{
+      typeId: "Deposito", //Retiro, deposito o pago servicio
+      accountId: this.state.user, //Quien lo hizo
+      ammount: this.state.dinero*this.state.cantidad, //cantidad
+    })
 
-    alert("depositado");
+    this.setState({
+      openAlert1:true
+    });
 
   }
   render() {
@@ -105,6 +115,16 @@ export default class Depositos extends Component {
             <Button color="primary" type="submit" form="fomr1" >Depositar</Button>
           </CardActions>
         </Card>
+        <Snackbar
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          open={this.state.openAlert1}
+          onClose={(e) => this.setState({ openAlert1: false })}
+          autoHideDuration={6000}
+        >
+          <Alert onClose={(e) => this.setState({ openAlert1: false })} severity="success">
+            {`Depositado`}
+          </Alert>
+        </Snackbar>
       </Grid>
     )
   }

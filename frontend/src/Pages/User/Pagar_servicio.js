@@ -68,14 +68,14 @@ export default class Pagar_servicio extends Component {
   pagoServicioTarjeta = async (precio, servicio) =>{
     const req = await axios.post('http://localhost:4000/api/pago/tarjeta/'+ this.state.user._id, {costo: precio});
 
-    //@Roger - Copiar y pegar de aquí 
+    //@sergio - Gracias  
     const postTrans = await axios.post('http://localhost:4000/api/transactions',{
       typeId: "Pago Servicio", //Retiro, deposito o pago servicio
       accountId: this.state.user._id, //Quien lo hizo
       utilitiesId: servicio,//Qué servicio es
       ammount: precio, //cantidad
     })
-    //A aquí
+    //Bro
     
     this.setState({bool: req.data.pago})
     if (!req.data.pago){
