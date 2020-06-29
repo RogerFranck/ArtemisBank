@@ -9,17 +9,17 @@ transactionCtrl.getAllTransactions = async (req,res) =>{
 }
 
 transactionCtrl.getUserTransactions = async (req,res) => {
-  const transactions = await transactionModel.findOne({accountId : req.params.id});
+  const transactions = await transactionModel.find({accountId : req.params.id});
   res.json(transactions)
 }
 
 transactionCtrl.getTypeTransactions = async (req,res) => {
-  const transactions = await transactionModel.findOne({typeId : req.params.tipo});
+  const transactions = await transactionModel.find({typeId : req.params.tipo});
   res.json(transactions)
 }
 
 transactionCtrl.getServiceTransactions = async (req,res) => {
-  const transactions = await transactionModel.findOne({utilitiesId : req.params.serviceId});
+  const transactions = await transactionModel.find({utilitiesId : req.params.serviceId});
   res.json(transactions)
 }
 
