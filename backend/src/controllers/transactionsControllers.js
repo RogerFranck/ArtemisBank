@@ -30,7 +30,7 @@ transactionCtrl.getUserTransactionsType = async (req,res) => {
 }
 
 transactionCtrl.getServiceTransactions = async (req,res) => {
-  const transactions = await transactionModel.findOne({utilitiesId : req.params.serviceId});
+  const transactions = await transactionModel.find({utilitiesId : req.params.serviceId});
   res.json(transactions)
 }
 
