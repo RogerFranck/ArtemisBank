@@ -21,7 +21,7 @@ transactionCtrl.getTypeTransactions = async (req,res) => {
 transactionCtrl.getUserTransactionsType = async (req,res) => {
   if (req.body.utilitiesId){
     const transactions = await transactionModel.find({accountId: req.params.id , utilitiesId : req.body.utilitiesId});
-  res.json(transactions)
+    res.json(transactions)
   }
   else if (req.body.tipo){
     const transactions = await transactionModel.find({accountId: req.params.id , typeId : req.body.tipo});

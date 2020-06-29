@@ -49,24 +49,44 @@ export default class Htran extends Component {
   }
   onSubmit = async (e) => {
     e.preventDefault();
-    //console.log(this.state.filtro);
-    //console.log(this.state.filtroUsu);
     if (this.state.filtroUsu == "Todo") {
       if (this.state.filtro == "Deposito" || this.state.filtro == "Retiro" || this.state.filtro == "Pago Servicio") {
-        console.log(`${this.state.filtro} de todos`);
         const req = await axios.get(`http://localhost:4000/api/transactions/typeFilter/${this.state.filtro}`);
         this.setState({
           transacciones: req.data
-        }); 
-        console.log(req.data);
+        });
       } else if (this.state.filtro == "Todo") {
         this.getservice();
       }
       else {
-        console.log(`servicio ${this.state.filtro} de todos`)
+        const req = await axios.get(`http://localhost:4000/api/transactions/serviceFilter/${this.state.filtro}`);
+        this.setState({
+          transacciones: req.data
+        });
       }
     } else {
-      console.log(`${this.state.filtro} dato de ${this.state.filtroUsu}`)
+      if (this.state.filtro == "Todo") {
+        const req = await axios.get(`http://localhost:4000/api/transactions/${this.state.filtroUsu}`);
+        this.setState({
+          transacciones: req.data
+        });
+      } else {
+        if (this.state.filtro == "Deposito" || this.state.filtro == "Retiro" || this.state.filtro == "Pago Servicio") {
+          const req = await axios.post(`http://localhost:4000/api/transactions/${this.state.filtroUsu}`, {
+            tipo: this.state.filtro,
+          });
+          this.setState({
+            transacciones: req.data
+          });
+        } else {
+          const req = await axios.post(`http://localhost:4000/api/transactions/${this.state.filtroUsu}`, {
+            utilitiesId: this.state.filtro,
+          });
+          this.setState({
+            transacciones: req.data
+          });
+        }
+      }
     }
   }
   render() {
