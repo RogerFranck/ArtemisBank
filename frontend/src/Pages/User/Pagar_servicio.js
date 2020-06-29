@@ -15,7 +15,7 @@ import PaymentIcon from '@material-ui/icons/Payment';
 import IconButton from '@material-ui/core/IconButton';
 import PayGood from '../../Components/PayGood'
 import axios from 'axios';
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 
@@ -94,16 +94,20 @@ export default class Pagar_servicio extends Component {
           <ListItemText primary={servicio.description} secondary={servicio.cost} />
           <ListItemAvatar>
             <Avatar>
+              <Tooltip title="Pagar en efectivo">
               <IconButton onClick={() => window.location.href = `/servicio/${servicio._id}`}>
                 <LocalAtmIcon />
               </IconButton>
+              </Tooltip>
             </Avatar>
           </ListItemAvatar>
           <ListItemAvatar>
             <Avatar>
+             <Tooltip title="Pagar con tarjeta">
               <IconButton onClick={() => this.pagoServicioTarjeta(servicio.cost, servicio.description)}>
                 <PaymentIcon />
               </IconButton>
+              </Tooltip>
             </Avatar>
           </ListItemAvatar>
         </ListItem>

@@ -3,7 +3,7 @@ const { update } = require('../models/modelATMCash');
 const router = Router();
 
 
-const {getAllTransactions, getUserTransactions, postTransaction, getTypeTransactions, getServiceTransactions} = require('../controllers/transactionsControllers');
+const {getAllTransactions, getUserTransactionsType, getUserTransactions, postTransaction, getTypeTransactions, getServiceTransactions} = require('../controllers/transactionsControllers');
 
 router.route('/')
     .get(getAllTransactions)
@@ -11,6 +11,7 @@ router.route('/')
 
 router.route('/:id')
     .get(getUserTransactions)
+    .post(getUserTransactionsType)
 
 router.route('/typeFilter/:tipo')
     .get(getTypeTransactions)
