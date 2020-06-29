@@ -1,21 +1,20 @@
 # ArtemisBank
-Ordinario de Algoritmos
 
-# Integrantes
-Almeyda Ramos Roger Francisco
-Mendoza Matos Sergio
-Tostado Alamo Miguel
-Rivas Emilio
-Lopez Daniel
-Vadillo Jimena
+## Integrantes
+- Almeyda Ramos Roger Francisco
+- Mendoza Matos Sergio
+- Tostado Alamo Miguel
+- Rivas Emilio
+- Lopez Daniel
+- Vadillo Jimena
 
-# 1. Introducción
+## 1. Introducción
 El objetivo principal para este proyecto correspondiente a la materia de algoritmos, consiste
 en realizar un programa que integre el algoritmo basado en programación dinámica para
 cumplir con las funciones de un cajero automático, de igual manera se requiere de la
 implementación de archivos JSON para almacenar la información.
 
-# 2. Definición general del Proyecto
+## 2. Definición general del Proyecto
 De manera general el proyecto consiste en simular la funcionalidad de un cajero autoático
 usando el algoritmo (Dynamic Programming Algorithm), así como otras funciones e
 implementaciones aprendidas a lo largo del semestre. La finalidad es simular lo que sería
@@ -24,7 +23,7 @@ divisas mexicanas y principalmente la parte que da el cambio es la que debe dar 
 denominaciones de mayor conveniencia dependiendo de la cantidad de dinero disponible a
 dar y la cantidad a cambiar.
 
-# 3. Especificación de requerimientos
+## 3. Especificación de requerimientos
 El programa contará con un apartado de inicio de session mediante un número de tarjeta de
 crédito. Se pretende cubrir dos perfiles, el de administrador y el de un usuario común. En el
 caso del usuario común se debe cubrir con la función de ver el saldo actual, historial de
@@ -41,7 +40,7 @@ criterios mencionados en el usuario normal, realizar depósitos con los criterio
 mencionados anteriormente, por ultimo cubrir con la administración de los servicios, donde
 se pueden agregar o quitar de las funciones del cajero.
 
-# 4. Listado de herramientas utilizadas
+## 4. Listado de herramientas utilizadas
 Para el desarrollo de este proyecto se implementó el lenguaje de programación JavaScript,
 manejando el entorno de desarrollo integrado (IDE) Visual Studio Code, utilizando las
 funciones de Node.JS, se usaron archivos JSON para almacenar la información necesaria,
